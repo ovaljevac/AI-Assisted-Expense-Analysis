@@ -12,6 +12,26 @@ Web aplikacija za praćenje poslovnih troškova, planiranje budžeta i finansijs
 - **Izvještaji** — sažeti i detaljni prikazi te izvoz u Excel, PDF i CSV.
 - **AI uvidi i notifikacije** — sažeci, preporuke, provjere anomalija i prijedlozi kategorija.
 
+## Izgled aplikacije
+
+Screenshotovi su snimljeni iz lokalno pokrenute aplikacije i nalaze se u folderu [screenshots](screenshots/).
+
+### Početna stranica
+
+![Početna stranica aplikacije Tim12 Finansije](screenshots/01-pocetna-stranica.jpg)
+
+### Finansijski pregled
+
+![Nadzorna ploča s pokazateljima, grafikonima i posljednjim troškovima](screenshots/02-finansijski-pregled.jpg)
+
+### Unos i pregled troškova
+
+![Forma za unos troška i lista evidentiranih troškova](screenshots/03-unos-troska.jpg)
+
+### AI uvidi
+
+![AI asistent, sažetak poslovanja i preporuke](screenshots/04-ai-uvidi.jpg)
+
 ## Tehnologije
 
 | Dio sistema     | Tehnologije                                                        |
@@ -41,6 +61,7 @@ CompanyDashboard/
 │       ├── docker-compose.yml
 │       └── docker-compose.local.yml
 ├── dokumentacija/               # Upute, tehnička dokumentacija i sprintovi 1–11
+├── screenshots/                 # Screenshotovi aplikacije prikazani u README-u
 ├── .github/workflows/           # GitHub Actions provjere
 ├── start-local.ps1              # Lokalno pokretanje na Windowsu
 └── README.md
