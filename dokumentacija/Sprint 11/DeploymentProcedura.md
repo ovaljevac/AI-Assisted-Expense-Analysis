@@ -7,7 +7,7 @@
 
 ## 1. Naziv aplikacije i arhitektura
 
-**Naziv aplikacije:** Grupa12 SI Aplikacija
+**Naziv aplikacije:** AI Assisted Expense Analysis
 
 ### Opis arhitekture
 Sistem se sastoji od četiri servisa:

@@ -1,6 +1,6 @@
 # Dokumentacija
 
-Ovdje se nalazi prateća dokumentacija projekta **CompanyDashboard / Tim12 Finansije**. Izvorni kod ostaje u [PROJEKAT](../PROJEKAT/), a glavni pregled projekta nalazi se u [korijenskom README-u](../README.md).
+Ovdje se nalazi prateća dokumentacija projekta **AI Assisted Expense Analysis**. Izvorni kod ostaje u [PROJEKAT](../PROJEKAT/), a glavni pregled projekta nalazi se u [korijenskom README-u](../README.md).
 
 ## Aktuelne upute
 

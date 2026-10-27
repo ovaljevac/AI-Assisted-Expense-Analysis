@@ -1,7 +1,7 @@
 {
-  "name": "tim12app",
+  "name": "ai-assisted-expense-analysis-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "AI Assisted Expense Analysis backend API",
   "main": "app.js",
   "scripts": {
     "start": "tsx app.ts",

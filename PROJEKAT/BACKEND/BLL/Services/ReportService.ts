@@ -150,7 +150,7 @@ export class ReportService implements IReportService {
     workbook.Props = {
       Title: reportType === "detaljni" ? "Detaljni izvjestaj o troskovima" : "Sazeti izvjestaj o troskovima",
       Subject: this.getPeriodLabel(report),
-      Author: "TIM12",
+      Author: "AI Assisted Expense Analysis",
       CreatedDate: new Date(),
     };
 

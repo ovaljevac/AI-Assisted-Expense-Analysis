@@ -38,7 +38,7 @@ npm.cmd test -- --watch=false
 npm.cmd run build
 ```
 
-Izgradnja se zapisuje u `dist/TIM12Frontend/browser`. `npm.cmd start` služi za posluživanje izgrađenih fajlova i očekuje varijablu `PORT`; za svakodnevni lokalni razvoj koristite `npm.cmd run dev`.
+Izgradnja se zapisuje u `dist/ai-assisted-expense-analysis/browser`. `npm.cmd start` služi za posluživanje izgrađenih fajlova i očekuje varijablu `PORT`; za svakodnevni lokalni razvoj koristite `npm.cmd run dev`.
 
 ## Okruženja i prijava
 

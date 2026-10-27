@@ -1,6 +1,7 @@
 {
   "id" : "df04e28c-3c2e-4b67-857a-fd21c46d4ad8",
   "realm" : "Grupa12SI",
+  "displayName" : "AI Assisted Expense Analysis",
   "notBefore" : 0,
   "defaultSignatureAlgorithm" : "RS256",
   "revokeRefreshToken" : false,

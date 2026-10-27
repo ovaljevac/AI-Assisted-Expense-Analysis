@@ -9,16 +9,16 @@
   <aside class="sidebar" aria-label="Bočna navigacija">
     <a
       class="brand-link"
+      [attr.aria-label]="projectName"
       [routerLink]="isAuthenticated ? '/home' : '/'"
       (click)="mobileNavigationOpen = false"
     >
       <span class="brand-mark"><span></span><span></span><span></span></span>
-      <strong>tim12<span class="brand-dot">.</span></strong
-      ><small>FINANSIJE</small>
+      <strong>AI Assisted<br />Expense Analysis</strong>
     </a>
     <div class="workspace-label">
-      <span class="workspace-avatar">T</span>
-      <div><strong>Tim12 Workspace</strong><small>Finansijski radni prostor</small></div>
+      <span class="workspace-avatar">AI</span>
+      <div><strong>Radni prostor</strong><small>Analiza troškova uz AI</small></div>
     </div>
     @if (isAuthenticated) {
       <p class="nav-caption">RADNI PROSTOR</p>
@@ -64,14 +64,14 @@
           ><span
             ><strong>{{ isAdmin ? 'Administrator' : 'Korisnički profil' }}</strong
             ><small>{{
-              localEnvironment ? 'Lokalni radni prostor' : 'Tim12 Finansije'
+              localEnvironment ? 'Lokalni radni prostor' : projectName
             }}</small></span
           ><ui-icon name="down"
         /></a>
       } @else {
         <p class="sidebar-note">Manje administracije.<br />Više kontrole nad finansijama.</p>
       }
-      <span class="sidebar-version">TIM12 FINANCE <span>v1.0</span></span>
+      <span class="sidebar-version">{{ projectName }} <span>v1.0</span></span>
     </div>
   </aside>
   <section class="workspace">
@@ -124,7 +124,7 @@
     }
     <main id="main-content"><router-outlet /></main>
     <footer class="workspace-footer">
-      <span>© {{ localEnvironment ? 'Tim12 · Lokalni razvoj' : 'Tim12 Finansije' }}</span
+      <span>© {{ projectName }}{{ localEnvironment ? ' · Lokalni razvoj' : '' }}</span
       ><span>Vaše finansije, jasnije.</span>
     </footer>
   </section>

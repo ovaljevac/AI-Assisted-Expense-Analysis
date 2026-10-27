@@ -1,5 +1,5 @@
 # Technical Setup & Branching Strategy
-### Tim 12 — Sistem za AI asistirano analiziranje troškova firme
+### AI Assisted Expense Analysis
 
 ---
 

@@ -1,4 +1,4 @@
-# CompanyDashboard · Tim12 Finansije
+# AI Assisted Expense Analysis
 
 Web aplikacija za praćenje poslovnih troškova, planiranje budžeta i finansijsko izvještavanje. Podaci o troškovima, odjelima, kategorijama i dobavljačima objedinjeni su u jednom radnom prostoru, uz grafikone, poređenja i AI uvide.
 
@@ -18,7 +18,7 @@ Screenshotovi su snimljeni iz lokalno pokrenute aplikacije i nalaze se u folderu
 
 ### Početna stranica
 
-![Početna stranica aplikacije Tim12 Finansije](screenshots/01-pocetna-stranica.jpg)
+![Početna stranica aplikacije AI Assisted Expense Analysis](screenshots/01-pocetna-stranica.jpg)
 
 ### Finansijski pregled
 
@@ -47,7 +47,7 @@ Screenshotovi su snimljeni iz lokalno pokrenute aplikacije i nalaze se u folderu
 ## Struktura repozitorija
 
 ```text
-CompanyDashboard/
+AI Assisted Expense Analysis/
 ├── PROJEKAT/
 │   ├── FRONTEND/                # Angular aplikacija
 │   └── BACKEND/

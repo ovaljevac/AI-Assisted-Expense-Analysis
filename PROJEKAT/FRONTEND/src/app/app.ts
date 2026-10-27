@@ -28,6 +28,7 @@ export class App implements OnInit, OnDestroy {
   public readonly reportRoles = ['admin', 'glavni_racunovodja', 'finansijski_direktor'];
   public readonly notificationRoles = ['admin', 'glavni_racunovodja', 'finansijski_direktor'];
   public readonly adminConsoleUrl = `${environment.keycloakUrl}/`;
+  public readonly projectName = 'AI Assisted Expense Analysis';
   public mobileNavigationOpen = false;
   public readonly localEnvironment = environment.localAuth;
   public readonly todayLabel = (() => {

@@ -18,7 +18,7 @@ from app.services.category_service import CategoryService
 
 
 app = FastAPI(
-    title="Grupa12 AI Analytics Service",
+    title="AI Assisted Expense Analysis — AI Service",
     description="Internal AI analytics service for expense analysis, forecasts, anomalies, and category suggestions.",
     version="0.1.0",
 )

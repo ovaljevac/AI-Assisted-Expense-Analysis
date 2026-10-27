@@ -18,4 +18,4 @@ EXPOSE ${PORT:-4200}
 
 # Serve the 'browser' folder - use Railway's PORT env var, fallback to 4200
 # -a 0.0.0.0 binds to all interfaces (Railway requires this)
-CMD ["sh", "-c", "http-server dist/TIM12Frontend/browser -p ${PORT:-4200} -a 0.0.0.0"]
+CMD ["sh", "-c", "http-server dist/ai-assisted-expense-analysis/browser -p ${PORT:-4200} -a 0.0.0.0"]

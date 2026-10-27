@@ -1,4 +1,4 @@
-# Tim 12: Sistem za AI asistirano analiziranje troškova firme i otkrivanje odstupanja
+# AI Assisted Expense Analysis
 
 ## Kratak opis projekta
 Sistem treba omogućiti unos, uvoz i organizaciju podataka o troškovima firme iz različitih izvora, njihovu klasifikaciju po kategorijama, odjelima, projektima i vremenskim periodima te analizu trendova, budžetskih odstupanja i neuobičajenih obrazaca potrošnje.

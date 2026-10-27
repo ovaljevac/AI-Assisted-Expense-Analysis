@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "TIM12Frontend": {
+    "ai-assisted-expense-analysis": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -18,7 +18,7 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
-            "outputPath": "dist/TIM12Frontend",
+            "outputPath": "dist/ai-assisted-expense-analysis",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -64,10 +64,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "TIM12Frontend:build:production"
+              "buildTarget": "ai-assisted-expense-analysis:build:production"
             },
             "development": {
-              "buildTarget": "TIM12Frontend:build:development"
+              "buildTarget": "ai-assisted-expense-analysis:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -1,10 +1,10 @@
 {
-  "name": "tim12-frontend",
+  "name": "ai-assisted-expense-analysis-frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve --host localhost --port 4200",
-    "start": "http-server dist/TIM12Frontend/browser -p $PORT",
+    "start": "http-server dist/ai-assisted-expense-analysis/browser -p $PORT",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
