@@ -14,7 +14,7 @@ Web aplikacija za praćenje poslovnih troškova, planiranje budžeta i finansijs
 
 ## Izgled aplikacije
 
-Screenshotovi su snimljeni iz lokalno pokrenute aplikacije i nalaze se u folderu [screenshots](screenshots/).
+Screenshotovi aplikacije nalaze se u folderu [screenshots](screenshots/).
 
 ### Početna stranica
 
@@ -22,7 +22,7 @@ Screenshotovi su snimljeni iz lokalno pokrenute aplikacije i nalaze se u folderu
 
 ### Finansijski pregled
 
-![Nadzorna ploča s pokazateljima, grafikonima i posljednjim troškovima](screenshots/02-finansijski-pregled.jpg)
+![Finansijski pokazatelji, kretanje troškova i raspodjela po kategorijama](screenshots/02-finansijski-pregled.png)
 
 ### Unos i pregled troškova
 
@@ -31,6 +31,14 @@ Screenshotovi su snimljeni iz lokalno pokrenute aplikacije i nalaze se u folderu
 ### AI uvidi
 
 ![AI asistent, sažetak poslovanja i preporuke](screenshots/04-ai-uvidi.jpg)
+
+### Uvoz podataka
+
+![Prvi korak uvoza troškova iz CSV ili XLSX datoteke](screenshots/05-uvoz-podataka.png)
+
+### Notifikacije
+
+![Centar za upozorenja s detaljima prijavljene anomalije](screenshots/06-notifikacije.png)
 
 ## Tehnologije
 
