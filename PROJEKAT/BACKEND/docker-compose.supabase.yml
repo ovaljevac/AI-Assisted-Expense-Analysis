@@ -1,0 +1,32 @@
+x-supabase-database-url: &supabase-database-url
+  "${SUPABASE_DATABASE_URL:?Postavite SUPABASE_DATABASE_URL u backend .env}?sslmode=verify-full&sslrootcert=/run/supabase-ca.crt"
+
+x-supabase-certificate: &supabase-certificate
+  type: bind
+  source: ./.env.supabase-ca.crt
+  target: /run/supabase-ca.crt
+  read_only: true
+  bind:
+    create_host_path: false
+
+services:
+  backend:
+    depends_on: !reset {}
+    environment:
+      DATABASE_URL: *supabase-database-url
+    volumes:
+      - *supabase-certificate
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/health').then(r => { if (!r.ok) process.exit(1) }).catch(() => process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  ai-service:
+    depends_on: !override
+      backend:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: *supabase-database-url
+    volumes:
+      - *supabase-certificate

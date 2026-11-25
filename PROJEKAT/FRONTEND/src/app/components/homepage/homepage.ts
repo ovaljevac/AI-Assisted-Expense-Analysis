@@ -18,6 +18,7 @@ export class Homepage {
 
   public readonly adminConsoleUrl = `${environment.keycloakUrl}/`;
   public readonly localAuth = !environment.production && environment.localAuth;
+  public readonly demoAuth = environment.demoAuth;
   public errorMessage = '';
   public isLoading = false;
   public infoMessage = '';
@@ -29,14 +30,14 @@ export class Homepage {
 
   public get isAuthenticated(): boolean { return this.authGuardService.isAuthenticated(); }
 
-  public async loginWithKeycloak(): Promise<void> {
+  public async loginWithKeycloak(password?: string): Promise<void> {
     this.errorMessage = '';
     this.infoMessage = '';
     this.loadingMessage = '';
 
     this.isLoading = true;
     try {
-      await this.authGuardService.loginWithKeycloak();
+      await this.authGuardService.loginWithKeycloak(password);
     } catch (error) {
       this.errorMessage = error instanceof Error ? error.message : 'Prijava nije uspjela.';
     } finally {

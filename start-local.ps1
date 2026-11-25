@@ -1,3 +1,5 @@
+param([switch] $Supabase)
+
 $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
 $backendPath = Join-Path $projectRoot 'PROJEKAT/BACKEND'
@@ -24,7 +26,13 @@ if (!(Test-Path -LiteralPath $localEnvPath)) {
 
 Push-Location $backendPath
 try {
-    docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
+    $composeFiles = @('-f', 'docker-compose.yml', '-f', 'docker-compose.local.yml')
+    $services = @()
+    if ($Supabase) {
+        $composeFiles += @('-f', 'docker-compose.supabase.yml')
+        $services = @('keycloak', 'backend', 'ai-service')
+    }
+    docker compose @composeFiles up -d --build @services
     Assert-CommandSucceeded 'Pokretanje Docker servisa nije uspjelo.'
 } finally {
     Pop-Location

@@ -31,6 +31,7 @@ export class App implements OnInit, OnDestroy {
   public readonly projectName = 'AI Assisted Expense Analysis';
   public mobileNavigationOpen = false;
   public readonly localEnvironment = environment.localAuth;
+  public readonly demoAuth = environment.demoAuth;
   public readonly todayLabel = (() => {
     const today = new Date();
     const months = ['januar', 'februar', 'mart', 'april', 'maj', 'juni', 'juli', 'august', 'septembar', 'oktobar', 'novembar', 'decembar'];

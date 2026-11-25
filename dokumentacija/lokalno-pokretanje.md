@@ -14,6 +14,28 @@ Skripta koristi postojeće foldere `PROJEKAT/FRONTEND` i `PROJEKAT/BACKEND`. Pod
 
 Aplikacija je dostupna na [localhost:4200](http://localhost:4200/).
 
+## Supabase PostgreSQL
+
+1. U zasebnom Supabase projektu isključite **Data API** u postavkama projekta. Backend upravlja pristupom podacima i pri pokretanju inicijalizuje aplikacijske tabele u šemi `public`.
+2. U Supabase Dashboardu otvorite **Connect → Session pooler** i kopirajte PostgreSQL URI. Unesite lozinku baze i percent-kodirajte rezervisane znakove u lozinci. U `PROJEKAT/BACKEND/.env` uz lokalne postavke iz sljedećeg odjeljka dodajte `SUPABASE_DATABASE_URL='kopirani_URI'`. Koristite URI bez dijela koji počinje znakom `?`. Compose dodaje TLS postavke s provjerom certifikata i imena servera. [Upute za povezivanje sa Supabase PostgreSQL bazom](https://supabase.com/docs/guides/database/connecting-to-postgres)
+3. U **Database Settings → SSL Configuration** preuzmite CA certifikat i sačuvajte ga kao `PROJEKAT/BACKEND/.env.supabase-ca.crt`. [Supabase SSL postavke](https://supabase.com/docs/guides/platform/ssl-enforcement)
+4. Iz korijena repozitorija pokrenite `.\start-local.ps1 -Supabase`. Backend i AI servis koriste istu Supabase bazu, a AI servis čeka da backend završi inicijalizaciju šeme. Prijava radi kroz postojeću lokalnu razvojnu prijavu ili Keycloak.
+
+Pokretanje sa `-Supabase` inicijalizuje šemu i osnovne šifarnike. Postojeći troškovi i budžeti ostaju u lokalnoj bazi dok ih zasebno ne prenesete. Skripta bez parametra `-Supabase` koristi lokalni Docker PostgreSQL.
+
+## Jedan Web Service na Renderu
+
+Render pokreće Angular i API na istoj javnoj adresi. Za novi servis nakon pushanja koda odaberite **New → Blueprint** i povežite repozitorij. Konfiguracija iz `render.yaml` kreira jedan Node Web Service, postavlja build i generiše `SESSION_SECRET`. U Render unesite ove vrijednosti.
+
+| Varijabla | Vrijednost |
+| --- | --- |
+| `DEMO_LOGIN_PASSWORD` | Nasumična lozinka od najmanje 32 znaka, različita od `SESSION_SECRET` |
+| `DATABASE_URL` | Supabase Session pooler URI s nastavkom `?sslmode=verify-full&sslrootcert=/etc/secrets/supabase-ca.crt` |
+
+U **Environment → Secret Files** dodajte CA certifikat kao `supabase-ca.crt` i ponovo pokrenite deploy ako je prvi počeo prije dodavanja certifikata. Kad servis bude **Live**, otvorite njegovu glavnu URL adresu i unesite demo lozinku. Demo račun ima administratorski pristup i namijenjen je zasebnoj testnoj bazi.
+
+Ako već imate Render Web Service, možete zadržati njegov URL. U **Settings** ispraznite Root Directory da build može pristupiti oba foldera i preuzmite Build Command, Start Command i Health Check Path iz `render.yaml`. U **Environment** postavite `NODE_VERSION=24.11.1`, `NODE_ENV=production` i `SERVE_FRONTEND=true`. Zadržite `SESSION_SECRET` od najmanje 32 znaka i uklonite stari `FRONTEND_ORIGIN` ako je pokazivao na zaseban frontend. Servis će automatski koristiti vlastitu Render adresu.
+
 ## Ručno pokretanje
 
 Sve putanje u ovoj uputi polaze od korijena repozitorija, ne od foldera `dokumentacija`.

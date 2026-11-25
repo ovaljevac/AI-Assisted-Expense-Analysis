@@ -31,9 +31,14 @@ const JWT_AUDIENCE = process.env.JWT_AUDIENCE ;
 const JWKS_URI = process.env.JWKS_URI;
 const SESSION_SECRET = process.env.SESSION_SECRET;
 const SESSION_COOKIE_NAME = "tim12.sid";
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:4200";
+const frontendBuildDir = process.env.SERVE_FRONTEND === "true"
+  ? path.resolve(__dirname, "../FRONTEND/dist/ai-assisted-expense-analysis/browser")
+  : undefined;
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN ||
+  (frontendBuildDir && process.env.RENDER_EXTERNAL_URL) ||
+  "http://localhost:4200";
 const IS_PROD = process.env.NODE_ENV === "production";
-const localAuth = LocalDevelopmentAuth.fromEnvironment(process.env);
+const localAuth = LocalDevelopmentAuth.fromEnvironment(process.env, FRONTEND_ORIGIN);
 const dbClientConfig = () => ({
   connectionString: process.env.DATABASE_URL,
   ssl: IS_PROD ? { rejectUnauthorized: false } : false,
@@ -276,6 +281,7 @@ async function ensureBaseData() {
 
 function startServer() {
   const app = express();
+  if (process.env.RENDER === "true") app.set("trust proxy", 1);
   const authService = new AuthService(
     {
       jwtIssuer: JWT_ISSUER,
@@ -356,6 +362,8 @@ function startServer() {
   registerAIAnalysisEndpoints(app, authService, writeLog);
   registerCommentEndpoints(app, authService, writeLog);
 
+  if (frontendBuildDir) app.use(express.static(frontendBuildDir));
+
   app.listen(PORT, "0.0.0.0", () => {
     writeLog("INFO", `Backend aplikacija sluša na portu ${PORT}.`);
   });
@@ -363,6 +371,9 @@ function startServer() {
 
 async function main() {
   try {
+    if (frontendBuildDir && !fs.existsSync(path.join(frontendBuildDir, "index.html"))) {
+      throw new Error("Angular build nedostaje. Pokrenite npm run build:render u PROJEKAT/FRONTEND.");
+    }
     await ensureDockerServices();
     await runMigrations();
     await ensureBaseData();

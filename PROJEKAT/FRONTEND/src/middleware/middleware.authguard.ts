@@ -78,7 +78,7 @@ export class AuthGuardService {
     return Boolean(params.get('code') || params.get('error'));
   }
 
-  public async loginWithKeycloak(): Promise<void> {
+  public async loginWithKeycloak(password?: string): Promise<void> {
     if (this.shouldUseCanonicalLocalhost()) {
       window.location.replace(
         `http://localhost:4200${window.location.pathname}${window.location.search}${window.location.hash}`
@@ -86,8 +86,8 @@ export class AuthGuardService {
       return;
     }
 
-    if (!environment.production && environment.localAuth) {
-      await this.loginLocally();
+    if (environment.demoAuth || (!environment.production && environment.localAuth)) {
+      await this.loginLocally(password);
       return;
     }
 
@@ -113,12 +113,18 @@ export class AuthGuardService {
     window.location.href = `${this.keycloakAuthorizeUrl}?${query.toString()}`;
   }
 
-  private async loginLocally(): Promise<void> {
+  private async loginLocally(password?: string): Promise<void> {
     const backendUrl = environment.apiUrl.replace(/\/api\/?$/, '');
-    const response = await this.fetchWithTimeout(`${backendUrl}/auth/local-login`, {
+    const endpoint = environment.demoAuth ? 'demo-login' : 'local-login';
+    const response = await this.fetchWithTimeout(`${backendUrl}/auth/${endpoint}`, {
       method: 'POST',
       credentials: 'include',
+      ...(environment.demoAuth && {
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      }),
     });
+    if (environment.demoAuth && response.status === 401) throw new Error('Pogrešna lozinka.');
     if (!response.ok) throw new Error('Lokalna prijava nije dostupna. Provjeri da li je backend pokrenut s lokalnom konfiguracijom.');
     const { accessToken } = await response.json() as { accessToken?: string };
     if (!accessToken) throw new Error('Backend nije vratio token za lokalnu prijavu.');
@@ -244,7 +250,7 @@ export class AuthGuardService {
   }
 
   public getKeycloakLogoutUrl(): string {
-    if (!environment.production && environment.localAuth) {
+    if (environment.demoAuth || (!environment.production && environment.localAuth)) {
       return `${window.location.origin}/#/`;
     }
     const redirectUri = this.getRedirectUri();

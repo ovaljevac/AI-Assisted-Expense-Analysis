@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: ai-assisted-expense-analysis
+    runtime: node
+    plan: free
+    buildCommand: >-
+      npm --prefix PROJEKAT/FRONTEND ci --include=dev &&
+      npm --prefix PROJEKAT/FRONTEND run build:render &&
+      npm --prefix PROJEKAT/BACKEND ci --include=dev
+    startCommand: npm --prefix PROJEKAT/BACKEND start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "24.11.1"
+      - key: NODE_ENV
+        value: production
+      - key: SERVE_FRONTEND
+        value: "true"
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: DEMO_LOGIN_PASSWORD
+        sync: false
+      - key: DATABASE_URL
+        sync: false

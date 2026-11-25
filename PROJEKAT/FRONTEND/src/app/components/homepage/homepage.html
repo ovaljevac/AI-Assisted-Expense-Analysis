@@ -12,6 +12,14 @@
           <a class="primary-button" routerLink="/home"
             >Otvori radni prostor<ui-icon name="arrow"
           /></a>
+        } @else if (demoAuth) {
+          <form class="demo-login" (submit)="$event.preventDefault(); loginWithKeycloak(demoPassword.value)">
+            <label for="demo-password">Lozinka za probni pristup</label>
+            <input #demoPassword id="demo-password" type="password" required autocomplete="current-password" />
+            <button type="submit" class="primary-button" [disabled]="isLoading">
+              {{ isLoading ? 'Otvaranje…' : 'Prijavi se' }}<ui-icon name="arrow" />
+            </button>
+          </form>
         } @else {
           <button
             type="button"

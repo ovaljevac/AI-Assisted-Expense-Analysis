@@ -411,3 +411,16 @@
     letter-spacing: 1px;
   }
 }
+.demo-login {
+  display: grid;
+  gap: 0.5rem;
+  width: min(100%, 20rem);
+}
+
+.demo-login input {
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #64748b;
+  border-radius: 0.5rem;
+  font: inherit;
+}

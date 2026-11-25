@@ -99,6 +99,8 @@ Otvorite **[http://localhost:4200/](http://localhost:4200/)** i kliknite **Prija
 
 Za ručno pokretanje, konfiguraciju prijave, Gemini ključ i rješavanje problema pogledajte [upute za lokalno pokretanje](dokumentacija/lokalno-pokretanje.md).
 
+Za korištenje Supabase PostgreSQL baze pogledajte [postavke za Supabase](dokumentacija/lokalno-pokretanje.md#supabase-postgresql).
+
 ### Zaustavljanje
 
 Frontend se zaustavlja s **Ctrl+C** u terminalu u kojem je pokrenut. Docker servise zaustavite iz korijena repozitorija:

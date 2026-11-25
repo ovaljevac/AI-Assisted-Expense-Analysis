@@ -6,6 +6,7 @@
     "dev": "ng serve --host localhost --port 4200",
     "start": "http-server dist/ai-assisted-expense-analysis/browser -p $PORT",
     "build": "ng build",
+    "build:render": "node scripts/build-render.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

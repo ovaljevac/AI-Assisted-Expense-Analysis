@@ -53,7 +53,7 @@
       }
     }
     <div class="sidebar-bottom">
-      @if (isAdmin) {
+      @if (isAdmin && !demoAuth) {
         <a class="settings-link" [href]="adminConsoleUrl" target="_blank" rel="noopener noreferrer"
           ><ui-icon name="settings" />Administracija<ui-icon name="arrow"
         /></a>
