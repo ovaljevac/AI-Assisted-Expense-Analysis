@@ -1,3 +1,5 @@
+import type { Client as PostgresClient } from "pg";
+
 require("dotenv").config();
 
 const express = require("express");
@@ -42,6 +44,7 @@ const localAuth = LocalDevelopmentAuth.fromEnvironment(process.env, FRONTEND_ORI
 const dbClientConfig = () => ({
   connectionString: process.env.DATABASE_URL,
   ssl: IS_PROD ? { rejectUnauthorized: false } : false,
+  connectionTimeoutMillis: 5000,
 });
 
 
@@ -79,17 +82,23 @@ async function ensureDockerServices() {
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function connectWithRetry(client: any, retries = 10, delayMs = 1000) {
+async function connectWithRetry(retries = 10, delayMs = 1000): Promise<PostgresClient> {
+  if (!process.env.DATABASE_URL) {
+    throw new Error("DATABASE_URL nije definisan.");
+  }
+
   let lastError: unknown;
 
   for (let attempt = 1; attempt <= retries; attempt += 1) {
+    const client: PostgresClient = new Client(dbClientConfig());
     try {
       await client.connect();
-      return;
+      return client;
     } catch (error) {
       lastError = error;
-      writeLog("WARN", `Baza nije spremna (pokušaj ${attempt}/${retries})...`);
-      await delay(delayMs);
+      await client.end().catch(() => {});
+      writeLog("WARN", `Baza nije spremna (pokušaj ${attempt}/${retries})...`, error);
+      if (attempt < retries) await delay(delayMs);
     }
   }
 
@@ -97,15 +106,11 @@ async function connectWithRetry(client: any, retries = 10, delayMs = 1000) {
 }
 
 async function runMigrations() {
-  if (!process.env.DATABASE_URL) {
-    throw new Error("DATABASE_URL nije definisan.");
-  }
-
-  const client = new Client(dbClientConfig());
+  let client: PostgresClient | undefined;
   
   try {
     writeLog("INFO", "Povezujem se na bazu podataka...");
-    await connectWithRetry(client);
+    client = await connectWithRetry();
     writeLog("INFO", "Konekcija na bazu uspješna.");
 
     const result = await client.query(
@@ -129,20 +134,16 @@ async function runMigrations() {
     writeLog("ERROR", "Greška pri migracijama", error);
     throw error;
   } finally {
-    await client.end();
+    await client?.end();
   }
 }
 
 async function ensureBaseData() {
-  if (!process.env.DATABASE_URL) {
-    throw new Error("DATABASE_URL nije definisan.");
-  }
-
-  const client = new Client(dbClientConfig());
+  let client: PostgresClient | undefined;
 
   try {
     writeLog("INFO", "Provjeravam osnovne podatke za sifarnike...");
-    await connectWithRetry(client);
+    client = await connectWithRetry();
 
     await client.query(`
       ALTER TABLE troskovi
@@ -275,7 +276,7 @@ async function ensureBaseData() {
     writeLog("ERROR", "Greska pri provjeri osnovnih podataka", error);
     throw error;
   } finally {
-    await client.end();
+    await client?.end();
   }
 }
 
@@ -380,7 +381,9 @@ async function main() {
     startServer();
   } catch (error) {
     writeLog("ERROR", "Ne mogu pokrenuti aplikaciju", error);
-    process.exit(1);
+    const message = error instanceof Error ? error.message : "Nepoznata greška.";
+    console.error("Ne mogu pokrenuti aplikaciju:", message.replace(/postgres(?:ql)?:\/\/[^\s"']+/gi, "[DATABASE_URL]"));
+    process.exitCode = 1;
   }
 }
 
